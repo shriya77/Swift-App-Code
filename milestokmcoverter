@@ -1,0 +1,28 @@
+import SwiftUI
+struct ContentView: View {
+    @State var km = 0.00
+    @State var mile = 0.00
+    var body: some View {
+        VStack{
+            Text("Miles to Kilometres converter")
+                .font(.title)
+                .padding()
+                .foregroundColor(.blue)
+            HStack {
+                Text("Kilometres")
+                .padding()
+                TextField("Quantity 1", value: $km, format: .number)
+                .textFieldStyle(.roundedBorder)
+                .border(.purple, width:4)
+                .keyboardType(.decimalPad)
+                Text("Miles")
+                Text("\(km*0.62137, specifier:"%.2f")")
+            }
+            HStack {
+                TextField("Quantity 1", value: $mile, format: .number)
+                Text(String(mile*1.60934))
+            }
+        }
+        
+    }
+}
