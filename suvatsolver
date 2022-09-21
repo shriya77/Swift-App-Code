@@ -1,0 +1,103 @@
+import SwiftUI
+struct ContentView: View {
+    @State var km = 0.00
+    @State var mile = 0.00
+    @State var time = 0.00
+    @State var velocity = 0.00
+    var body: some View {
+        VStack{
+            Text("SUVAT SOLVER")
+                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .font(.title)
+                .padding()
+                .padding()
+                .padding()
+                .padding()
+                .padding()
+                .foregroundColor(.black)
+            HStack {
+                Text("Displacement")
+                .padding()
+                TextField("Quantity 1", value: $km, format: .number)
+                .textFieldStyle(.roundedBorder)
+                .border(.cyan, width:4)
+                .keyboardType(.decimalPad)
+            }
+            HStack {
+                Text("Initial velocity")
+                    .padding()
+                TextField("Quantity 1", value: $mile, format: .number)
+                    .textFieldStyle(.roundedBorder)
+                    .border(.green, width:4)
+                    .keyboardType(.decimalPad)
+            }
+            HStack {
+                Text("Final velocity")
+                    .padding()
+                TextField("Quantity 1", value: $mile, format: .number)
+                    .textFieldStyle(.roundedBorder)
+                    .border(.black, width:4)
+                    .keyboardType(.decimalPad)
+            }
+        }
+        HStack {
+            Text("Acceleration")
+                .padding()
+            TextField("Quantity 1", value: $mile, format: .number)
+                .textFieldStyle(.roundedBorder)
+                .border(.gray, width:4)
+                .keyboardType(.decimalPad)
+        }
+        HStack {
+            Text("Time")
+                .padding()
+            TextField("Quantity 1", value: $mile, format: .number)
+                .textFieldStyle(.roundedBorder)
+                .border(.indigo, width:4)
+                .keyboardType(.decimalPad)
+        }
+        TabView {
+            Text("displacement:")
+                .bold()
+                .foregroundColor(.cyan)
+                .dynamicTypeSize(/*@START_MENU_TOKEN@*/.xLarge/*@END_MENU_TOKEN@*/)
+                .font(.title3)
+                .tabItem {
+                    Label("s", systemImage: "star")
+                }
+            
+            Text("initial velocity:")
+                .bold()
+                .foregroundColor(.green)
+                .dynamicTypeSize(.xLarge)
+                .font(.title3)
+                .tabItem {
+                    Label("u", systemImage: "square")
+                }
+            Text("final velocity:")
+                .bold()
+                .foregroundColor(.black)
+                .dynamicTypeSize(.xLarge)
+                .font(.title3)
+                .tabItem {
+                    Label("v", systemImage: "oval")
+                }
+            Text("acceleration:")
+                .bold()
+                .foregroundColor(.gray)
+                .dynamicTypeSize(.xLarge)
+                .font(.title3)
+                .tabItem {
+                    Label("a", systemImage: "rectangle")
+                }
+            Text("time:")
+                .bold()
+                .foregroundColor(.indigo)
+                .dynamicTypeSize(.xLarge)
+                .font(.title3)
+                .tabItem {
+                    Label("t", systemImage: "circle")
+                }
+    }
+    }
+}
