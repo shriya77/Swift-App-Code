@@ -1,0 +1,88 @@
+import SwiftUI
+
+struct Triangle: Shape { // Create a custom shape. This is a triangle.
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+        
+        return path
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        ZStack {
+            Image("cat body")
+                .resizable()
+                .offset(x: 10,y: 50)
+                .frame(width: 304, height: 400)
+            
+            Ellipse() // Creates face
+                .strokeBorder(.black, lineWidth: 2)
+                .background(Ellipse().fill(.white))
+                .frame(width: 200, height: 170)
+            
+            ZStack{ // eyes
+                
+                Circle()
+                    .frame(width: 40, height: 50)
+                    .offset(x: -38, y: 0)
+                
+                Circle()
+                    .frame(width: 40, height: 50)
+                    .offset(x: +38, y: 0)
+                
+                Circle()
+                    .fill(.white)
+                    .frame(width: 15, height: 50)
+                    .offset(x: -28, y: 0)
+                
+                Circle()
+                    .fill(.white)
+                    .frame(width: 15, height: 50)
+                    .offset(x: +28, y: 0)
+            }
+            
+            ZStack{ // Creates whiskers.
+                Rectangle()
+                    .stroke(lineWidth: 1)
+                    .frame(width: 80, height: 1)
+                    .offset(x: +90, y: 10)
+                    .rotationEffect(.degrees(15))
+                
+                Rectangle()
+                    .stroke(lineWidth: 1)
+                    .frame(width: 70, height: 1)
+                    .offset(x: +90, y: 10)
+                    .rotationEffect(.degrees(25))
+                
+                Rectangle()
+                    .stroke(lineWidth: 1)
+                    .frame(width: 90, height: 1)
+                    .offset(x: -90, y: 10)
+                    .rotationEffect(.degrees(-15))
+                
+                Rectangle()
+                    .stroke(lineWidth: 1)
+                    .frame(width: 80, height: 1)
+                    .offset(x: -90, y: 10)
+                    .rotationEffect(.degrees(-25))
+            }
+            
+            Triangle() // nose
+                .fill(.black) // Can't have strock and fill at the same time
+                .frame(width: 15, height: 15)
+                .offset(x: 0, y: -30)
+                .rotationEffect(.degrees(-180))
+            
+            Text("3") // mouth
+                .rotationEffect(.degrees(90))
+                .font(.title)
+                .offset(x: 0, y: 50)
+        }
+    }
+}
