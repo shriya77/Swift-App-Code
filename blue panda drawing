@@ -1,0 +1,75 @@
+import SwiftUI
+
+struct Triangle: Shape { // Create a custom shape. This is a triangle.
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+        
+        return path
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        ZStack {
+            Circle()  // Creates ear 1
+                .font(.title)
+                .font(.system(size: 360))
+                .frame(width: 50, height: 50)
+                .offset(x: -100, y: -10)
+                .rotationEffect(.degrees(140))
+            Circle() // Creates ear 1
+                .font(.title)
+                .frame(width: 50, height: 50)
+                .offset(x: -100, y: 7)
+                .rotationEffect(.degrees(40))
+            
+            Ellipse() // Creates face
+                .strokeBorder(.black, lineWidth: 2)
+                .background(Ellipse().fill(.white))
+                .frame(width: 200, height: 170)
+            
+            ZStack{ // eyes
+                Ellipse()
+                    .fill(AngularGradient(
+                        gradient: Gradient(colors: [.blue, .indigo]),
+                        center: .center))
+                    .frame(width: 200, height: 170)
+                Circle()
+                    .frame(width: 40, height: 50)
+                    .offset(x: -38, y: 0)
+                
+                Circle()
+                    .frame(width: 40, height: 50)
+                    .offset(x: +38, y: 0)
+                
+                Circle()
+                    .fill(.yellow)
+                    .frame(width: 15, height: 50)
+                    .offset(x: -35, y: 5)
+                
+                Circle()
+                    .fill(.yellow)
+                    .frame(width: 15, height: 50)
+                    .offset(x: +36, y: 5.5)
+            }
+            
+            Triangle() // nose
+                .fill(.black) // Can't have strock and fill at the same time
+                .frame(width: 15, height: 15)
+                .offset(x: 0, y: -30)
+                .rotationEffect(.degrees(-180))
+            Rectangle()
+                .stroke(lineWidth: 2.5)
+                .frame(width: 50, height: 1)
+                .offset(x: 0, y: 45)
+            Text("U") // mouth
+                .font(.title)
+                .offset(x: 0, y: 55)
+        }
+    }
+}
