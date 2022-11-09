@@ -76,7 +76,9 @@ struct ContentView: View {
                     CatBodyWidth += 1
                 }
                 label: {
-                    Image("catfood")
+                    Image("taco")
+                        .resizable()
+                        .frame(width: 300, height: 150)
                 }
                 VStack{
                     Image("ball")
