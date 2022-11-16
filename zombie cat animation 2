@@ -1,0 +1,125 @@
+import SwiftUI
+
+struct ContentView: View {
+    @GestureState var dragOffset = CGSize.zero // CGSize A structure that contains width and height values.
+    @State var position = CGSize.zero
+    @State var brushingPoints = 0.00
+    @State var CatBodyWidth = 304.00 // Must be floating number
+    @State var animateBall = false
+    
+    
+    var body: some View {
+        // @State var GoodThing1: String = ""
+
+        
+        VStack{
+        ZStack {
+            Circle()
+                .fill(.blue)
+                .frame(width: 90, height: 500)
+                .offset(x: -100, y: 0)
+            Circle()
+                .fill(.purple)
+                .frame(width: 90, height: 500)
+                .offset(x: 160, y: 3)
+            
+            Image("CatBody")
+                .resizable()
+                .offset(x: 20, y: 300)
+                .frame(width: CatBodyWidth, height: 240) // original size 304 height 240 Can use to thin and thicken the cat
+            
+            Ellipse()
+                .frame(width: 250, height: 350)
+                .offset(x: 90, y: -30)
+                .rotationEffect(.degrees(90))
+            
+            ZStack {
+                Image("smile2")
+                    .resizable()
+                    .frame(width: 120, height: 50)
+                    .offset(x: 24.5, y: 140)
+                Image("cat nose")
+                    .offset(x: -20, y: 50)
+                Circle()
+                    .fill(.white)
+                    .frame(width: 25, height: 500)
+                    .offset(x: 100, y: 80)
+                
+                Circle()
+                    .fill(.white)
+                    .frame(width: 25, height: 500)
+                    .offset(x: -50, y: 80)
+            }
+        }
+            Spacer()
+            HStack{
+            Image("brush")
+                .offset(x: position.width + dragOffset.width, y: position.height + dragOffset.height)
+                .gesture(
+                    DragGesture()
+                        .onChanged(({ _ in
+                            brushingPoints += 0.1
+                        }))
+                        .updating($dragOffset, body: { (value, state, transaction) in
+                            state = value.translation
+                        })
+                        .onEnded({ (value) in // Remove this section and it will go back to where it starts
+                            self.position.height += value.translation.height
+                            self.position.width += value.translation.width
+                            print("height",position.height) // So you can see coordinates
+                            print("width",position.width)
+                            print("points",brushingPoints)
+                        })
+                )
+                Button{
+                    print("Fed Cat")
+                    CatBodyWidth += 1
+                }
+                label: {
+                    Image("taco")
+                        .resizable()
+                        .frame(width: 270, height: 130)
+                }
+                VStack{
+                    Image("ball")
+                        .offset(x:animateBall ? -1250 : 0 ,y: animateBall ? -1500 : 0)
+                        .scaleEffect(animateBall ? 0.5 : 1.0)
+                    
+                    // More fun effects to try
+                    //.rotationEffect(.degrees(animateBall ? 360 : 0))
+                    //.rotation3DEffect(
+                    //Angle(degrees: animateBall ? 360 : 0),
+                    //axis: (x: 0, y: animateBall ? 180 : 0, z: 0))
+                    
+                    .animation(.linear(duration: 1), value: animateBall)
+                    //.animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animateBall)
+                    Button("Throw") {
+                        animateBall.toggle()
+                        CatBodyWidth -= 0.5
+                    }
+                    .padding()
+                    .background(Color(red: 1, green: 0.7, blue: 0.2))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    
+                    
+                }
+                Text("\(brushingPoints, specifier: "%.2f") Brush points")
+                    .font(.title)
+                    .foregroundColor(.white)
+            }
+            Text("CAT PET SIMULATOR")
+                .foregroundColor(.white)
+                .padding()
+                .font(.title)
+            
+    }
+        .background(
+            Image("apoc")
+                .offset(x: 0, y: -225)
+        )
+    }
+}
+
+// Original cat came from: https://pixabay.com/illustrations/cat-feline-little-cat-kawaii-5160456/ 
+// Using under Pixabay license.
